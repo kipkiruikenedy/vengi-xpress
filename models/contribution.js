@@ -1,21 +1,21 @@
-const { default: mongoose } = require('mongoose');
+const mongoose  = require('mongoose');
 
 
-const contributionSchema = new mongoose.Schema({
-    id:{ type:Number},
-   name:{ type:'string',required:true, },
-   Shares:{type:Number},
-   NLoan:{type:Number},
-   TBanking:{type:Number},
-   Welfare:{type:Number},
-   IShares:{type:Number},
-   Emergency:{type:Number},
-   LProcessing:{type:Number},
-   Registration:{type:Number},
-   BLaws:{type:Number},
+const contributionsSchema = new mongoose.Schema({
+    id:Number,
+   name:'string',
+   shares:Number,
+   NLoan:Number,
+   TBanking:Number,
+   welfare:Number,
+   Ishare:Number,
+   emergency:Number,
+   lprocessing:Number,
+   registration:Number,
+   Blaws:Number,
    date: { type: Date, default: Date.now  },
 
    
 })
-const Contribution = mongoose.model('Contribution', contributionSchema);
-module.exports=Contribution
+const Contributions = mongoose.model('Contributions', contributionsSchema);
+module.exports=Contributions

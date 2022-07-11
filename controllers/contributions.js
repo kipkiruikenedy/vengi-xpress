@@ -1,15 +1,11 @@
 const { default: mongoose } = require('mongoose');
 
-const Contribution = require('../models/contribution')
-
-const connection_URL='mongodb+srv://admin:26Mexico@cluster0.eoh3v.mongodb.net/?retryWrites=true&w=majority'
-
-mongoose.connect(connection_URL, { useNewUrlParser: true, useUnifiedTopology: true } )
+const Contributions = require('../models/contribution')
 
 const GetAllContributions=async(req, res) => {
     try {
-      const contribution= await Contribution.find({})
-      res.status(200).json({Contribution})
+      const contributions= await Contributions.find({})
+      res.status(200).json({contributions})
     } catch (error) {
       
     }
@@ -19,8 +15,8 @@ const GetAllContributions=async(req, res) => {
   
   const CreateContribution= async(req, res) => {
     try {
-      const contribution= await Contribution.create(req.body)
-      res.status(200).json({Contribution})
+      const contributions= await Contributions.create(req.body)
+      res.status(200).json({contributions})
     } catch (error) {
       
     }
@@ -29,8 +25,8 @@ const GetAllContributions=async(req, res) => {
   
   const UpdateContribution=async(req, res) => {
     try {
-      const contribution= await Contribution.findOneAndUpdate({})
-      res.status(200).json({Contribution})
+      const contributions= await Contributions.findOneAndUpdate({})
+      res.status(200).json({contributions})
     } catch (error) {
       
     }
@@ -39,8 +35,8 @@ const GetAllContributions=async(req, res) => {
   const GetContribution=async(req, res) => {
     try {
       const {id:memberID} = req.params;
-      const contribution= await Contribution.findOne({id:memberID})
-      res.status(200).json({Contribution})
+      const contributions= await Contributions.findOne({id:memberID})
+      res.status(200).json({contributions})
     } catch (error) {
       
     }
@@ -49,8 +45,8 @@ const GetAllContributions=async(req, res) => {
   const deleteContribution=async(req, res) => {
     try {
       const {id:memberID} = req.params;
-      const contribution= await Contribution.findOne({id:memberID})
-      res.status(200).json({Contribution})
+      const contributions= await Contributions.findOne({id:memberID})
+      res.status(200).json({contributions})
     } catch (error) {
       
     }
