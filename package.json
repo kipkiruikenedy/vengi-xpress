@@ -4,7 +4,7 @@
   "description": "node and express and mongo db backend",
   "main": "server.js",
   "scripts": {
-    "start": "server.js"
+    "start": "node server.js"
   },
   "author": "kenedy kipkirui +254799463307",
   "license": "ISC",
