@@ -6,8 +6,8 @@ const contributions = require('./routes/contributions');
 
 const mongoose = require('mongoose');
 const cors = require('cors')
-const connectDB = require('./db/connect');
-require('dotenv').config();
+
+
 const notFound = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler');
 
@@ -32,7 +32,9 @@ const connection_URL='mongodb+srv://admin:26Mexico@cluster0.eoh3v.mongodb.net/?r
 
 const connectDB=(connection_URL)=>{
     try {
-        mongoose.connect(connection_URL, { useNewUrlParser: true, useUnifiedTopology: true } ).then(
+        mongoose.connect(connection_URL, {  useNewUrlParser: true,
+          
+            useUnifiedTopology: true, } ).then(
             ()=>{  console.log("connected to db");}
         ).catch((err)=>{
             console.log(err);
