@@ -5,62 +5,99 @@ const Members = require('../models/members')
 
 
 
-const GetAllMembers=async(req, res) => {
+const getAllmembers = async (req, res, next) => {
+  let members;
   try {
-    const members= await Members.find({})
-    res.status(200).json({members})
-  } catch (error) {
-    res.status(500).json({msg:"an error occured"})
+    members = await Members.find();
+  } catch (err) {
+    console.log(err);
   }
 
+  if (!members) {
+    return res.status(404).json({ message: "No data found" });
   }
+  return res.status(200).json({ members });
+};
 
-
-const CreateMembers=async(req, res) => {
+const getById = async (req, res, next) => {
+  const id = req.params.id;
+  let member;
   try {
-    const members= await Members.create(req.body)
-    res.status(200).json({members})
-  } catch (error) {
-    res.status(500).json({msg:"an error occured"})
+    member = await Members.findById(id);
+  } catch (err) {
+    console.log(err);
   }
+  if (!member) {
+    return res.status(404).json({ message: "No data found" });
   }
+  return res.status(200).json({ member });
+};
 
-
-const UpdateMembers=async(req, res) => {
+const addMember = async (req, res, next) => {
+  const { no, name, email, phone, role } = req.body;
+  let member;
   try {
-    const members= await Members.findOneAndUpdate({})
-    res.status(200).json({members})
-  } catch (error) {
-    res.status(500).json({msg:"an error occured"})
+    member = new Members({
+      no,
+      name,
+      email,
+      phone,
+      role,
+   
+    });
+    await member.save();
+  } catch (err) {
+    console.log(err);
   }
+
+  if (!member) {
+    return res.status(500).json({ message: "Unable To Add" });
   }
-const deleteMember=async(req, res) => {
+  return res.status(201).json({ book });
+};
+
+const updateMember = async (req, res, next) => {
+  const id = req.params.id;
+  const { no, name, email, phone, role } = req.body;
+  let member;
   try {
-    const members= await Members.findOneAndUpdate({})
-    res.status(200).json({members})
-  } catch (error) {
-    res.status(500).json({msg:"an error occured"})
+    member = await Members.findByIdAndUpdate(id, {
+      no,
+      name,
+      email,
+      phone,
+      role,
+    });
+    member = await member.save();
+  } catch (err) {
+    console.log(err);
   }
+  if (!member) {
+    return res.status(404).json({ message: "Unable To Update By this ID" });
   }
+  return res.status(200).json({ member });
+};
 
-const GetMember=async(req, res) => {
+const deleteMember = async (req, res, next) => {
+  const id = req.params.id;
+  let member;
   try {
-    const {id:memberID} = req.params;
-    const members= await Members.findOne({id:memberID})
-    res.status(200).json({members})
-  } catch (error) {
-    res.status(500).json({msg:"an error occured"})
+    member = await Members.findByIdAndRemove(id);
+  } catch (err) {
+    console.log(err);
   }
+  if (!member) {
+    return res.status(404).json({ message: "Unable To Delete By this ID" });
   }
+  return res.status(200).json({ message: "Product Successfully Deleted" });
+};
+
+exports.getAllmembers = getAllmembers;
+exports.addMember= addMember;
+exports.getById = getById;
+exports.updateMember = updateMember;
+exports.deleteMember = deleteMember;
 
 
 
-
-
-  module.exports={
-      GetAllMembers,
-      UpdateMembers,
-      CreateMembers,
-      GetMember,
-      deleteMember
-  }
+ 

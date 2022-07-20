@@ -18,8 +18,8 @@ app.use(cors({
     origin: '*'
 }));
 //Routes
-app.use('/api/vi/members', members)
-app.use('/api/vi/contributions', contributions)
+app.use('/api/v1/members', members)
+app.use('/api/v1/contributions', contributions)
 
 const connection_URL='mongodb+srv://admin:26Mexico@cluster0.eoh3v.mongodb.net/?retryWrites=true&w=majority'
 
@@ -44,6 +44,7 @@ const connectDB=(connection_URL)=>{
 
 
 const port =process.env.PORT|| 9000
+
 const start=()=>{
     connectDB(connection_URL)
     app.listen(port, console.log(`The Server is running on port:${port}...`))

@@ -1,13 +1,13 @@
 const  mongoose  = require('mongoose');
 
 const MembersSchema = new mongoose.Schema({
-    id:Number,
+    no:Number,
     name:'string',
 
     email:'string',   
 
     phone:Number,
+    role:'string'
  
-})
-const Members = mongoose.model('Members', MembersSchema);
-module.exports=Members
+});
+module.exports = mongoose.model("Members",MembersSchema);
