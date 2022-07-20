@@ -53,7 +53,7 @@ const addMember = async (req, res, next) => {
   if (!member) {
     return res.status(500).json({ message: "Unable To Add" });
   }
-  return res.status(201).json({ book });
+  return res.status(201).json({ member });
 };
 
 const updateMember = async (req, res, next) => {
