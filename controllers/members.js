@@ -1,4 +1,4 @@
-const Members = require('../models/Members')
+const Members = require('../models/members')
 const asyncWrapper = require('../middleware/async')
 const { createCustomError } = require('../errors/custom-error')
 
