@@ -8,15 +8,15 @@ const Members = require('../models/members')
 const getAllmembers = async (req, res, next) => {
   let members;
   try {
-    members = await Members.find();
+    member = await Members.find();
   } catch (err) {
     console.log(err);
   }
 
-  if (!members) {
+  if (!member) {
     return res.status(404).json({ message: "No data found" });
   }
-  return res.status(200).json({ members });
+  return res.status(200).json({ member });
 };
 
 const getById = async (req, res, next) => {
@@ -34,16 +34,16 @@ const getById = async (req, res, next) => {
 };
 
 const addMember = async (req, res, next) => {
-  const { no, name, email, phone, role } = req.body;
+  const { name, author, description, price, available, image } = req.body;
   let member;
   try {
     member = new Members({
-      no,
       name,
-      email,
-      phone,
-      role,
-   
+      author,
+      description,
+      price,
+      available,
+      image,
     });
     await member.save();
   } catch (err) {
