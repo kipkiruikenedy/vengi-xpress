@@ -1,96 +1,53 @@
+const Members = require('../models/Members')
+const asyncWrapper = require('../middleware/async')
+const { createCustomError } = require('../errors/custom-error')
 
+const getAllMembers = asyncWrapper(async (req, res) => {
+  const members = await Members.find({})
+  res.status(200).json({ members })
+})
 
-const Members = require('../models/members')
+const addMember = asyncWrapper(async (req, res) => {
+  const member = await Members.create(req.body)
+  res.status(201).json({ member })
+})
 
-
-
-
-const getAllmembers = async (req, res, next) => {
-  let members;
-  try {
-    member = await Members.find();
-  } catch (err) {
-    console.log(err);
+const getMember = asyncWrapper(async (req, res, next) => {
+  const { id: memberID } = req.params
+  const member = await Members.findOne({ _id: memberID })
+  if (!member) {
+    return next(createCustomError(`No member with id : ${memberID}`, 404))
   }
+
+  res.status(200).json({ member })
+})
+const deleteMember = asyncWrapper(async (req, res, next) => {
+  const { id: memberID } = req.params
+  const member = await Members.findOneAndDelete({ _id: memberID })
+  if (!member) {
+    return next(createCustomError(`No member with id : ${memberID}`, 404))
+  }
+  res.status(200).json({ member })
+})
+const updateMember = asyncWrapper(async (req, res, next) => {
+  const { id: memberID } = req.params
+
+  const member = await Members.findOneAndUpdate({ _id: memberID }, req.body, {
+    new: true,
+    runValidators: true,
+  })
 
   if (!member) {
-    return res.status(404).json({ message: "No data found" });
-  }
-  return res.status(200).json({ member });
-};
-
-const getById = async (req, res, next) => {
-  const id = req.params.id;
-  let member;
-  try {
-    member = await Members.findById(id);
-  } catch (err) {
-    console.log(err);
-  }
-  if (!member) {
-    return res.status(404).json({ message: "No data found" });
-  }
-  return res.status(200).json({ member });
-};
-
-const addMember = async (req, res, next) => {
- 
-  try {
-    const member = await Members.create(req.body)
-    res.status(201).json({ member })
-     
-  } catch (err) {
-    console.log(err);
+    return next(createCustomError(`No member with id : ${memberID}`, 404))
   }
 
-  if (!member) {
-    return res.status(500).json({ message: "Unable To Add" });
-  }
-  return res.status(201).json({ member });
-};
+  res.status(200).json({ member })
+})
 
-const updateMember = async (req, res, next) => {
-  const id = req.params.id;
-  const { no, name, email, phone, role } = req.body;
-  let member;
-  try {
-    member = await Members.findByIdAndUpdate(id, {
-      no,
-      name,
-      email,
-      phone,
-      role,
-    });
-    member = await member.save();
-  } catch (err) {
-    console.log(err);
-  }
-  if (!member) {
-    return res.status(404).json({ message: "Unable To Update By this ID" });
-  }
-  return res.status(200).json({ member });
-};
-
-const deleteMember = async (req, res, next) => {
-  const id = req.params.id;
-  let member;
-  try {
-    member = await Members.findByIdAndRemove(id);
-  } catch (err) {
-    console.log(err);
-  }
-  if (!member) {
-    return res.status(404).json({ message: "Unable To Delete By this ID" });
-  }
-  return res.status(200).json({ message: "Product Successfully Deleted" });
-};
-
-exports.getAllmembers = getAllmembers;
-exports.addMember= addMember;
-exports.getById = getById;
-exports.updateMember = updateMember;
-exports.deleteMember = deleteMember;
-
-
-
- 
+module.exports = {
+  getAllMembers,
+  addMember,
+  getMember,
+  updateMember ,
+  deleteMember,
+}

@@ -6,6 +6,10 @@ const contributions = require('./routes/contributions');
 
 const mongoose = require('mongoose');
 const cors = require('cors')
+const connectDB = require('./db/connect');
+require('dotenv').config();
+const notFound = require('./middleware/not-found');
+const errorHandlerMiddleware = require('./middleware/error-handler');
 
 //middleware
 app.use(express.json())
@@ -17,6 +21,9 @@ app.use((req,res,next)=>{
 app.use(cors({
     origin: '*'
 }));
+app.use(notFound);
+app.use(errorHandlerMiddleware);
+
 //Routes
 app.use('/api/v1/members', members)
 app.use('/api/v1/contributions', contributions)
