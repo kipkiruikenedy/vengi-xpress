@@ -34,7 +34,7 @@ const getById = async (req, res, next) => {
 };
 
 const addMember = async (req, res, next) => {
-  let member;
+ 
   try {
     const member = await Members.create(req.body)
     res.status(201).json({ member })
