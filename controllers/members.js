@@ -34,18 +34,11 @@ const getById = async (req, res, next) => {
 };
 
 const addMember = async (req, res, next) => {
-  const { name, author, description, price, available, image } = req.body;
   let member;
   try {
-    member = new Members({
-      name,
-      author,
-      description,
-      price,
-      available,
-      image,
-    });
-    await member.save();
+    const member = await Members.create(req.body)
+    res.status(201).json({ member })
+     
   } catch (err) {
     console.log(err);
   }
