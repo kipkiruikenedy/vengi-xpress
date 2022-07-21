@@ -21,12 +21,13 @@ app.use((req,res,next)=>{
 app.use(cors({
     origin: '*'
 }));
-app.use(notFound);
-app.use(errorHandlerMiddleware);
+
 
 //Routes
 app.use('/api/v1/members', members)
 app.use('/api/v1/contributions', contributions)
+app.use(notFound);
+app.use(errorHandlerMiddleware);
 
 const connection_URL='mongodb+srv://admin:26Mexico@cluster0.eoh3v.mongodb.net/?retryWrites=true&w=majority'
 
