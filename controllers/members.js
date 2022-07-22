@@ -32,8 +32,9 @@ const deleteMember = asyncWrapper(async (req, res, next) => {
 })
 const updateMember = asyncWrapper(async (req, res, next) => {
   const { id: memberID } = req.params
+ const{ no,email,name,phone }=req.body;
 
-  const member = await Members.findOneAndUpdate({ _id: memberID }, req.body, {
+  const member = await Members.findOneAndUpdate({ _id: memberID}, { no,email,name,phone}, {
     new: true,
     runValidators: true,
   })
