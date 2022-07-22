@@ -13,7 +13,10 @@ const contributionsSchema = new mongoose.Schema({
    lprocessing:Number,
    registration:Number,
    Blaws:Number,
-   date: { type: Date, default: Date.now  },
+   addedAt: {
+    type: Date,
+    default: Date.now(),
+  },
 
    
 })

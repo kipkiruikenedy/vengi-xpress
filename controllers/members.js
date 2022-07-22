@@ -1,4 +1,5 @@
 const Members = require('../models/members')
+const  mongoose  = require('mongoose');
 const asyncWrapper = require('../middleware/async')
 const { createCustomError } = require('../errors/custom-error')
 
@@ -8,8 +9,8 @@ const getAllMembers = asyncWrapper(async (req, res) => {
 })
 
 const addMember = asyncWrapper(async (req, res) => {
-  const member = await Members.create(req.body)
-  res.status(201).json({ member })
+  const members = await Members.create(req.body)
+  res.status(201).json({ members })
 })
 
 const getMember = asyncWrapper(async (req, res, next) => {
