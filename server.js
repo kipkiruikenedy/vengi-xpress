@@ -3,6 +3,7 @@ const app = express();
 
 const members = require('./routes/members');
 const contributions = require('./routes/contributions');
+const register = require('./routes/register');
 
 const mongoose = require('mongoose');
 const cors = require('cors')
@@ -26,7 +27,7 @@ app.use(cors({
 //Routes
 app.use('/api/v1/members', members)
 app.use('/api/v1/contributions', contributions)
-app.use('/api/v1/register', contributions)
+app.use('/api/v1/register', register)
 app.use(notFound);
 app.use(errorHandlerMiddleware);
 
