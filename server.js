@@ -26,6 +26,7 @@ app.use(cors({
 //Routes
 app.use('/api/v1/members', members)
 app.use('/api/v1/contributions', contributions)
+app.use('/api/v1/register', contributions)
 app.use(notFound);
 app.use(errorHandlerMiddleware);
 
