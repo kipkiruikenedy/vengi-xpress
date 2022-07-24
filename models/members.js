@@ -33,6 +33,11 @@ const MembersSchema = new mongoose.Schema({
         maxlength: [20, 'name can not be more than 20 characters'],
         default: "member",
       },
+      selectedDate: {
+        type: Date
+       
+      }
+    
     
     }
 );
